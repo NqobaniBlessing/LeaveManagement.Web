@@ -4,6 +4,7 @@ using LeaveManagement.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,13 +12,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LeaveManagement.Web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230607114629_UpdateIdentitySchema")]
+    partial class UpdateIdentitySchema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.18")
+                .HasAnnotation("ProductVersion", "6.0.16")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -102,28 +104,6 @@ namespace LeaveManagement.Web.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "5ab992b3-e594-4cd4-8ca9-e61f8d655d47",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "308ac2e4-3b73-48b0-8ac1-c6befd052347",
-                            DateJoined = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "bnyoni@imgsol.co.zw",
-                            EmailConfirmed = true,
-                            FirstName = "System",
-                            LastName = "Admin",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "BNYONI@IMGSOL.CO.ZW",
-                            NormalizedUserName = "BNYONI@IMGSOL.CO.ZW",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOBfBzGzjR4PHDGsLwTxILDi7WXYsDPCgvMeByphhlz1c2taegygALAJBNIfvssKFg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "1e46c210-25e0-41fb-9c8b-761b3cf99fc2",
-                            TwoFactorEnabled = false,
-                            UserName = "bnyoni@imgsol.co.zw"
-                        });
                 });
 
             modelBuilder.Entity("LeaveManagement.Web.Data.LeaveAllocation", b =>
@@ -208,22 +188,6 @@ namespace LeaveManagement.Web.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "5ee693b3-e594-4f4-8ab9-e71f8d655d47",
-                            ConcurrencyStamp = "92f26231-56ff-4548-a353-ed15138156d2",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        },
-                        new
-                        {
-                            Id = "5ec693b3-e694-8dd4-8ac9-e71f8d635a59",
-                            ConcurrencyStamp = "ae8d9e79-fae5-49cd-a3ac-f535d5f519ce",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -313,13 +277,6 @@ namespace LeaveManagement.Web.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "5ab992b3-e594-4cd4-8ca9-e61f8d655d47",
-                            RoleId = "5ee693b3-e594-4f4-8ab9-e71f8d655d47"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

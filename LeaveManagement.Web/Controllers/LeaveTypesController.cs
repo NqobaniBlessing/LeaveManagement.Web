@@ -9,10 +9,13 @@ using LeaveManagement.Web.Data;
 using AutoMapper;
 using LeaveManagement.Web.Models;
 using LeaveManagement.Web.Contracts;
+using Microsoft.AspNetCore.Authorization;
+using LeaveManagement.Web.Constants;
 //using AspNetCore;
 
 namespace LeaveManagement.Web.Controllers
 {
+    [Authorize]
     public class LeaveTypesController : Controller
     {
         private readonly ILeaveTypeRepository _leaveTypeRepo;
@@ -45,6 +48,7 @@ namespace LeaveManagement.Web.Controllers
             return View(leaveTypeVM);
         }
 
+        [Authorize(Roles = Roles.Administrator)]
         // GET: LeaveTypes/Create
         public IActionResult Create()
         {
@@ -67,6 +71,7 @@ namespace LeaveManagement.Web.Controllers
             return View(leaveTypeVM);
         }
 
+        [Authorize(Roles = Roles.Administrator)]
         // GET: LeaveTypes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -116,6 +121,7 @@ namespace LeaveManagement.Web.Controllers
             return View(leaveTypeVM);
         }
 
+        [Authorize(Roles = Roles.Administrator)]
         // POST: LeaveTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
