@@ -3,7 +3,7 @@
     ViewData["Title"] = "Employees";
 }
 
-<h1>IndexAsync</h1>
+<h1>Employees</h1>
 <table class="table">
     <thead>
         <tr>
@@ -12,6 +12,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Lastname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DateJoined)
@@ -36,7 +39,7 @@
                     @Html.DisplayFor(modelItem => item.DateJoined)
                 </td>
                 <td>
-                    <a class="btn btn-info" asp-action="ViewAllocations" asp-route-id="@item.Id"><i class="fas fa-info-circle"></i>View Allocations</a>
+                    <a class="btn btn-info" asp-action="ViewAllocations" asp-route-id="@item.Id"><i class="fas fa-info-circle"></i>&nbsp; View Allocations</a>
                 </td>
             </tr>
         }

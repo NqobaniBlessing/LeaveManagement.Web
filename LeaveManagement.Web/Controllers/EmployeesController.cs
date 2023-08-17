@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using LeaveManagement.Web.Constants;
-using LeaveManagement.Web.Contracts;
-using LeaveManagement.Web.Data;
-using LeaveManagement.Web.Models;
-using LeaveManagement.Web.Repositories;
+using LeaveManagement.Common.Constants;
+using LeaveManagement.Application.Contracts;
+using LeaveManagement.Data;
+using LeaveManagement.Common.Models;
+using LeaveManagement.Application.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +16,11 @@ namespace LeaveManagement.Web.Controllers
         private readonly UserManager<Employee> userManager;
         private readonly IMapper mapper;
         private readonly ILeaveAllocationRepository leaveAllocationRepository;
-        private readonly LeaveTypeRepository leaveTypeRepository;
+        private readonly ILeaveTypeRepository leaveTypeRepository;
 
         public EmployeesController(UserManager<Employee> userManager, IMapper mapper, 
             ILeaveAllocationRepository leaveAllocationRepository,
-            LeaveTypeRepository leaveTypeRepository)
+            ILeaveTypeRepository leaveTypeRepository)
         {
             this.userManager = userManager;
             this.mapper = mapper;
@@ -78,7 +78,7 @@ namespace LeaveManagement.Web.Controllers
             }
 
             model.Employee = mapper.Map<EmployeeListVM>(await userManager.FindByIdAsync(model.EmployeeId));
-            model.leaveType = mapper.Map<LeaveTypeVM>(await leaveTypeRepository.GetAsync(model.LeaveTypeId));
+            model.LeaveType = mapper.Map<LeaveTypeVM>(await leaveTypeRepository.GetAsync(model.LeaveTypeId));
 
             return View(model);
         }

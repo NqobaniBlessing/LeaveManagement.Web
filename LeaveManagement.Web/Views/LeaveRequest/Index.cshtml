@@ -1,0 +1,118 @@
+﻿@model AdminLeaveRequestViewVM
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Admin Leave Request View</h1>
+
+<div class="row">
+    <div class="col-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <h2 class="card-title">@Model.Totalequests</h2>
+                <p class="card-text">@Html.DisplayNameFor(model => model.Totalequests)</p>
+                <a href="#" class="btn btn-primary"></a>
+            </div>
+        </div>
+    </div><div class="col-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <h2 class="card-title text-success">@Model.ApprovedRequests</h2>
+                <p class="card-text">@Html.DisplayNameFor(model => model.ApprovedRequests)</p>
+                <a href="#" class="btn btn-primary"></a>
+            </div>
+        </div>
+    </div><div class="col-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <h2 class="card-title text-warning">@Model.PendingRequests</h2>
+                <p class="card-text">@Html.DisplayNameFor(model => model.PendingRequests)</p>
+                <a href="#" class="btn btn-primary"></a>
+            </div>
+        </div>
+    </div><div class="col-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <h2 class="card-title text-danger">@Model.Totalequests</h2>
+                <p class="card-text">@Html.DisplayNameFor(model => model.RejectedRequests)</p>
+                <a href="#" class="btn btn-primary"></a>
+            </div>
+        </div>
+    </div>
+</div>
+<hr/>
+<h1>Leave Request Log</h1>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Employee Name
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LeaveRequests[0].StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LeaveRequests[0].EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LeaveRequests[0].LeaveType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LeaveRequests[0].DateRequested)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LeaveRequests[0].Approved)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.LeaveRequests) {
+        <tr>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Employee.Firstname) @Html.DisplayFor(modelItem => item.Employee.Lastname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LeaveType.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateRequested)
+            </td>
+            <td>
+                    @if (item.Cancelled)
+                    {
+                        <span class="badge bg-secondary">Cancelled</span>
+                    }
+                    else if (item.Approved == true)
+                    {
+                        <span class="badge bg-success">Approved</span>
+                    }
+                    else if (item.Approved == false)
+                    {
+                        <span class="badge bg-danger">Rejected</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Pending</span>
+                    }
+                    @Html.DisplayFor(modelItem => item.Approved)
+            </td>
+            <td>
+                @if (!item.Cancelled)
+                {
+                    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.Id">Review</a> 
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

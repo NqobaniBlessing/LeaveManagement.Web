@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using LeaveManagement.Web.Data;
-using AutoMapper;
-using LeaveManagement.Web.Models;
-using LeaveManagement.Web.Contracts;
+﻿using AutoMapper;
+using LeaveManagement.Data;
+using LeaveManagement.Common.Constants;
+using LeaveManagement.Application.Contracts;
+using LeaveManagement.Common.Models;
 using Microsoft.AspNetCore.Authorization;
-using LeaveManagement.Web.Constants;
-//using AspNetCore;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LeaveManagement.Web.Controllers
 {
@@ -101,12 +95,19 @@ namespace LeaveManagement.Web.Controllers
                 return NotFound();
             }
 
+            var leaveType = await _leaveTypeRepo.GetAsync(id);
+
+            if (leaveType == null)
+                return NotFound();
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var leaveType = _mapper.Map<LeaveType>(leaveTypeVM);
-                    await _leaveTypeRepo.UpdateAsync(leaveType);    
+                    leaveType = await _leaveTypeRepo.GetAsync(id);
+                    _mapper.Map(leaveTypeVM, leaveType);
+
+                    await _leaveTypeRepo.UpdateAsync(leaveType);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
